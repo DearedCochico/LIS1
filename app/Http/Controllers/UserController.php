@@ -6,6 +6,8 @@ use App\Models\User;
 use Inertia\Inertia;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+
 
 class UserController extends Controller
 {
@@ -24,7 +26,7 @@ class UserController extends Controller
         // ]);
 
 
-        $users = User::select('id', 'name', 'email', 'roleName', 'contactNumber')->get();
+        $users = User::select('id', 'name', 'email', 'roleName', 'contactNumber', 'address', 'birthDate')->get();
         return response()->json($users);
     }
 
@@ -38,22 +40,22 @@ class UserController extends Controller
         ]);
 
         // Create a new user
-        $user = User::create($validatedData);
-
-        // Return a response, such as JSON or a redirect
-        return response()->json($user);
         $user = User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'password' => bcrypt($validatedData['password']),
+            'address' => $validatedData['address'],
+            'roleName' => $validatedData['roleName'],
+            'profilePicture' => $validatedData['profilePicture'],
+            'birthDate' => $validatedData['birthDate'],
+            'contactNumber' => $validatedData['contactNumber'],
             // Assign other fields as needed
         ]);
 
         // Return a response
         return response()->json($user, 201);
-
-
     }
+
 
     public function update(Request $request, $id)
     {
@@ -62,6 +64,12 @@ class UserController extends Controller
         $user->update([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
+            // 'password' => $request->input('password'),
+            'address' => $request->input('address'),
+            'roleName' => $request->input('roleName'),
+            'profilePicture' => $request->input('profilePicture'),
+            'birthDate' => $request->input('birthDate'),
+            'contactNumber' => $request->input('contactNumber'),
         ]);
 
         return response()->json($user);

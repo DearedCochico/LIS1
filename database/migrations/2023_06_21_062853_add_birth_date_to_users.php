@@ -4,25 +4,29 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class AddBirthDateToUsers extends Migration
 {
     /**
-     * Run the migrations.
+     * Run the migration.
+     *
+     * @return void
      */
-    public function up(): void
+    public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('roleID');
+            $table->date('birthDate')->nullable();
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Reverse the migration.
+     *
+     * @return void
      */
-    public function down(): void
+    public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->dropColumn('birthDate');
         });
     }
-};
+}

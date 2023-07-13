@@ -15,8 +15,8 @@ class AddLastUpdatedAtToUsersTable extends Migration
 
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('lastUpdatedAt');
-        });
+        // Schema::table('users', function (Blueprint $table) {
+        //     $table->dropColumn('lastUpdatedAt');
+        // });
     }
 }

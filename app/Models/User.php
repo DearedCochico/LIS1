@@ -15,11 +15,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'profile_picture',
-        'birth_date',
-        'contact_number',
         'address',
-        'role_id'
+        'roleName', // Adjusted column name
+        'profilePicture', // Adjusted column name
+        'birthDate', // Adjusted column name
+        'contactNumber', // Adjusted column name
     ];
 
     protected $hidden = [
