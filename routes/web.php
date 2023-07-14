@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ServiceController;
 
 use Inertia\Inertia;
 
@@ -26,6 +27,12 @@ Route::put('/users/{id}', [UserController::class, 'update']);
 Route::delete('/users/{id}', [UserController::class, 'destroy']);
 
 // Route::get('/users', [UserController::class, 'index'])->name('users.index');
+
+Route::get('/services', [ServiceController::class, 'index']); // Fetch all services
+Route::post('/services', [ServiceController::class, 'store']); // Create a service
+Route::get('/services/{id}', [ServiceController::class, 'show']); // Fetch a specific service
+Route::put('/services/{id}', [ServiceController::class, 'update']); // Update a service
+Route::delete('/services/{id}', [ServiceController::class, 'destroy']); // Delete a service
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [

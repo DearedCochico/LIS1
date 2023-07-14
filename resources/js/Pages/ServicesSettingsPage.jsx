@@ -17,6 +17,7 @@ const ServicesSettingsPage = ({ auth }) => {
   const fetchServices = async () => {
     try {
       const response = await axios.get('/api/services'); // Replace with your actual API endpoint
+      console.log('API response:', response.data); // Log the response data
       setServices(response.data);
     } catch (error) {
       console.error('Error fetching services:', error);

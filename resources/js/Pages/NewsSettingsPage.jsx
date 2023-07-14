@@ -42,11 +42,11 @@ const createNews = async () => {
     try {
       const currentDate = new Date().toISOString().slice(0, 10);
       const response = await axios.post('http://127.0.0.1:8000/api/news-settings', {
-        ...newNews,
-        publishDate: currentDate,
+        title: newNews.title,
+        content: newNews.content,
+        publish_date: currentDate, // Update the field name to 'publish_date'
       });
       setNews(prevNews => [...prevNews, response.data]);
-      setEditingNews(null); // Reset editingNews directly
       setNewNews({
         title: '',
         content: '',
@@ -57,6 +57,7 @@ const createNews = async () => {
       console.error(error);
     }
   };
+
 
 
   // Update the updateNews() function:

@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ParticularController;
 use App\Http\Controllers\NewsSettingController;
 use App\Http\Controllers\ContactUsSettingsController;
+use App\Http\Controllers\ServiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,12 @@ Route::put('/news-settings/{id}', [NewsSettingController::class, 'update']); // 
 Route::delete('/news-settings/{id}', [NewsSettingController::class, 'destroy']); // Delete a news setting
 
 Route::apiResource('contact-us-settings', ContactUsSettingsController::class);
+
+Route::get('/services', [ServiceController::class, 'index']); // Fetch all services
+Route::post('/services', [ServiceController::class, 'store']); // Create a service
+Route::get('/services/{id}', [ServiceController::class, 'show']); // Fetch a specific service
+Route::put('/services/{id}', [ServiceController::class, 'update']); // Update a service
+Route::delete('/services/{id}', [ServiceController::class, 'destroy']); // Delete a service
 
 Route::get('/contacts', [ContactUsSettingsController::class, 'index']);
 Route::post('/contacts', [ContactUsSettingsController::class, 'store']);

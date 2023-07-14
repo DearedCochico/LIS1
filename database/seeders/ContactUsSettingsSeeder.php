@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\ContactUsSettings;
+use App\Models\ContactUsSetting;
 
 class ContactUsSettingsSeeder extends Seeder
 {
@@ -14,22 +14,26 @@ class ContactUsSettingsSeeder extends Seeder
      */
     public function run()
     {
-        $contacts = [
-            [
-                'name' => 'John Wick',
-                'email' => 'john@example.com',
-                'phone' => '09934421452',
-            ],
-            [
-                'name' => 'Jane Mary',
-                'email' => 'jane@example.com',
-                'phone' => '099424432113',
-            ],
-            // Add more contacts as needed
-        ];
+        ContactUsSetting::create([
+            'contacType' => 'Email',
+            'contactValue' => 'example@example.com',
+            'lastUpdated' => now(),
+        ]);
 
-        foreach ($contacts as $contact) {
-            ContactUsSettings::create($contact);
-        }
+        ContactUsSetting::create([
+            'contacType' => 'Phone',
+            'contactValue' => '1234567890',
+            'lastUpdated' => now(),
+        ]);
+
+
+        // Add more ContactUsSetting data as needed
+
+        // You can also use the following code to generate multiple ContactUsSetting records
+        /*
+        ContactUsSetting::factory()
+            ->count(10)
+            ->create();
+        */
     }
 }

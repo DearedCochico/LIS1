@@ -2,21 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ContactUsSettings extends Model
+class ContactUsSetting extends Model
 {
-    use HasFactory;
+    protected $table = 'contactUsTbl';
+
+    protected $primaryKey = 'contactID';
 
     protected $fillable = [
-        'name',
-        'email',
-        'phone',
+        'contacType',
+        'contactValue',
+        'lastUpdated',
     ];
 
-    public $edit;
-    public $delete;
-
+    public $timestamps = false;
 }
-
