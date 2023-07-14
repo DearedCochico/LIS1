@@ -37,6 +37,11 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email',
             'password' => 'required',
+            'address' => 'required',
+            'roleName' => 'required',
+            'profilePicture' => 'required',
+            'birthDate' => 'required|date',
+            'contactNumber' => 'required',
         ]);
 
         // Create a new user
@@ -49,7 +54,6 @@ class UserController extends Controller
             'profilePicture' => $validatedData['profilePicture'],
             'birthDate' => $validatedData['birthDate'],
             'contactNumber' => $validatedData['contactNumber'],
-            // Assign other fields as needed
         ]);
 
         // Return a response

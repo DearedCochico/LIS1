@@ -138,6 +138,7 @@ const UserManagementPage = ({ auth }) => {
   );
 
   const handleSave = async () => {
+    console.log('Saving user:', newUser);
     if (editingUser) {
       // If editingUser is true, update the existing user
       try {

@@ -1,31 +1,31 @@
-import React, { useState } from 'react';
-import AuthenticatedLayout from '@/Layouts/adminAuthenticatedLayout';
+import React, { useState, useEffect } from 'react';
 import { Head } from '@inertiajs/react';
+import axios from 'axios';
+import AuthenticatedLayout from '@/Layouts/adminAuthenticatedLayout';
 import SideBar from '../Components/adminSideBar';
 import CKEditor from 'react-ckeditor-component';
 
 const ServicesSettingsPage = ({ auth }) => {
-  const [services, setServices] = useState([
-    {
-      id: 1,
-      title: 'Service 1',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    },
-    {
-      id: 2,
-      title: 'Service 2',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    },
-    // Add more services as needed
-  ]);
-
+  const [services, setServices] = useState([]);
   const [editingService, setEditingService] = useState(null);
   const [newService, setNewService] = useState({
     title: '',
     description: '',
   });
-
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const fetchServices = async () => {
+    try {
+      const response = await axios.get('/api/services'); // Replace with your actual API endpoint
+      setServices(response.data);
+    } catch (error) {
+      console.error('Error fetching services:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchServices();
+  }, []);
 
   const resetForm = () => {
     setEditingService(null);
@@ -35,20 +35,25 @@ const ServicesSettingsPage = ({ auth }) => {
     });
   };
 
-  const handleSave = (e) => {
+  const handleSave = async (e) => {
     e.preventDefault();
 
     if (editingService) {
       // Update existing service
-      const updatedServices = services.map((service) =>
-        service.id === editingService.id ? { ...newService, id: service.id } : service
-      );
-      setServices(updatedServices);
+      try {
+        await axios.put(`/api/services/${editingService.id}`, newService); // Replace with your actual API endpoint
+        fetchServices(); // Fetch updated services
+      } catch (error) {
+        console.error('Error updating service:', error);
+      }
     } else {
       // Create new service
-      const newServiceId = services.length > 0 ? services[services.length - 1].id + 1 : 1;
-      const newServiceData = { ...newService, id: newServiceId };
-      setServices([...services, newServiceData]);
+      try {
+        await axios.post('/api/services', newService); // Replace with your actual API endpoint
+        fetchServices(); // Fetch updated services
+      } catch (error) {
+        console.error('Error creating service:', error);
+      }
     }
 
     resetForm();
@@ -61,8 +66,13 @@ const ServicesSettingsPage = ({ auth }) => {
     setIsModalOpen(true); // Open the modal when editing a service
   };
 
-  const handleDelete = (serviceId) => {
-    setServices(services.filter((service) => service.id !== serviceId));
+  const handleDelete = async (serviceId) => {
+    try {
+      await axios.delete(`/api/services/${serviceId}`); // Replace with your actual API endpoint
+      fetchServices(); // Fetch updated services
+    } catch (error) {
+      console.error('Error deleting service:', error);
+    }
   };
 
   const openModal = () => {
