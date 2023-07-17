@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\ContactUsSetting;
+use App\Models\ContactUsSettings;
 
 class ContactUsSettingsSeeder extends Seeder
 {
@@ -14,15 +14,15 @@ class ContactUsSettingsSeeder extends Seeder
      */
     public function run()
     {
-        ContactUsSetting::create([
-            'contacType' => 'Email',
-            'contactValue' => 'example@example.com',
+        ContactUsSettings::create([
+            'Type' => 'Email',
+            'Value' => 'example@example.com',
             'lastUpdated' => now(),
         ]);
 
-        ContactUsSetting::create([
-            'contacType' => 'Phone',
-            'contactValue' => '1234567890',
+        ContactUsSettings::create([
+            'Type' => 'Phone',
+            'Value' => '1234567890',
             'lastUpdated' => now(),
         ]);
 

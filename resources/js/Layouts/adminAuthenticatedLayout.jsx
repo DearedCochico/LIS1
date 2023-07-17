@@ -3,48 +3,211 @@ import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/react';
+// import SideBar from '../Components/adminSideBar';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faFolderTree, faMicroscope, faNewspaper, faHandshake, faAddressBook, faPeopleGroup, faTimes, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
-export default function adminAuthenticated({ user, header, children }) {
-  const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+const Sidebar = ({ url }) => {
+    return (
+      <div className="lg:w-64 bg-darkBlue text-white h-screen fixed top-0 left-0 lg:overflow-y-auto">
+        {/* Sidebar Content */}
+        <div className="p-4 lg:py-8">
+          <Link href={route('admin-dashboard')}>
+            <h1 className="text-2xl font-bold mb-4 flex items-center justify-center">
+              Admin Dashboard
+            </h1>
+          </Link>
+          <hr className="menu-divider" />
+
+          <ul className="space-y-2">
+          <li>
+            <Link href={route('user-management')} className={url === '/user-management' ? 'active' : 'flex items-center py-2 hover:bg-gray-700 transition-colors duration-200'}>
+              <span className="mr-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="w-4 h-4"
+                >
+                  {/* User Management Icon */}
+                </svg>
+              </span>
+              <FontAwesomeIcon icon={faUser} className="mr-2" />
+              User Management
+            </Link>
+          </li>
+          <li>
+            <Link href={route('audit-trail')} className={url === '/audit-trail' ? 'active' : 'flex items-center py-2 hover:bg-gray-700 transition-colors duration-200'}>
+              <span className="mr-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="w-4 h-4"
+                >
+                  {/* Audit Trail Icon */}
+                </svg>
+              </span>
+              <FontAwesomeIcon icon={faFolderTree} className="mr-2" />
+              Audit Trail
+            </Link>
+          </li>
+          <li>
+            <Link href={route('particular-management')} className={url === '/particular-management' ? 'active' : 'flex items-center py-2 hover:bg-gray-700 transition-colors duration-200'}>
+              <span className="mr-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="w-4 h-4"
+                >
+                  {/* Particular Management Icon */}
+                </svg>
+              </span>
+              <FontAwesomeIcon icon={faMicroscope} className="mr-2" />
+              Particular Management
+            </Link>
+          </li>
+          <li>
+            <Link href={route('news-settings')} className={url === '/news-settings' ? 'active' : 'flex items-center py-2 hover:bg-gray-700 transition-colors duration-200'}>
+              <span className="mr-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="w-4 h-4"
+                >
+                  {/* News Settings Icon */}
+                </svg>
+              </span>
+              <FontAwesomeIcon icon={faNewspaper} className="mr-2" />
+              News Settings
+            </Link>
+          </li>
+          <li>
+            <Link href={route('services-settings')} className={url === '/services-settings' ? 'active' : 'flex items-center py-2 hover:bg-gray-700 transition-colors duration-200'}>
+              <span className="mr-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="w-4 h-4"
+                >
+                  {/* Services Settings Icon */}
+                </svg>
+              </span>
+              <FontAwesomeIcon icon={faHandshake} className="mr-2" />
+              Services Settings
+            </Link>
+          </li>
+          <li>
+            <Link href={route('contact-settings')} className={url === '/contact-settings' ? 'active' : 'flex items-center py-2 hover:bg-gray-700 transition-colors duration-200'}>
+              <span className="mr-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="w-4 h-4"
+                >
+                  {/* Contact Us Settings Icon */}
+                </svg>
+              </span>
+              <FontAwesomeIcon icon={faAddressBook} className="mr-2" />
+              Contact Us Settings
+            </Link>
+          </li>
+          <li>
+            <Link href={route('about-settings')} className={url === '/about-settings' ? 'active' : 'flex items-center py-2 hover:bg-gray-700 transition-colors duration-200'}>
+              <span className="mr-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="w-4 h-4"
+                >
+                  {/* About Us Settings Icon */}
+                </svg>
+              </span>
+              <FontAwesomeIcon icon={faPeopleGroup} className="mr-2" />
+              About Us Settings
+            </Link>
+          </li>
+        </ul>
+        </div>
+      </div>
+    );
+  };
+
+
+export default function adminAuthenticated({ user, header, children, url }) {
+    const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(
+        false
+      );
+      const [showingSidebar, setShowingSidebar] = useState(true);
+
+      const toggleSidebar = () => {
+        setShowingSidebar(!showingSidebar);
+      };
 
   return (
-    <div className="min-h-screen bg-whiteBlue-1 lg:ml-64 md:ml-16 sm:ml-16 xsm:ml-16">
+    <div className="min-h-screen bg-whiteBlue-1 flex">
+        {showingSidebar && (
+        <div className="lg:w-64 flex-shrink-0">
+          <Sidebar url={url} />
+        </div>
+      )}
+
+    <div className={`flex-grow ${showingSidebar ? '' : ''}`}>
       <nav className="bg-whiteBlue-50 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
-            <div className="flex items-center">
-              <button
-                onClick={() => setShowingNavigationDropdown((previousState) => !previousState)}
-                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
-              >
-                <svg
-                  className="h-6 w-6"
-                  stroke="currentColor"
-                  fill="none"
-                  viewBox="0 0 24 24"
+          <div className="flex items-center">
+          <button
+                  onClick={toggleSidebar}
+                  className={`inline-flex items-center justify-center w-12 h-12 bg-darkBlue text-white fixed top-2 left-0 z-10 transition-all duration-300 ${
+                    showingSidebar
+                      ? 'transform translate-x-64'
+                      : 'transform translate-x-0'
+                  }`}
                 >
-                  <path
-                    className={!showingNavigationDropdown ? 'inline-flex' : 'hidden'}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4 6h16M4 12h16M4 18h16"
+                  <FontAwesomeIcon
+                    icon={showingSidebar ? faTimes : faChevronRight}
+                    className={`w-6 h-6`}
                   />
-                  <path
-                    className={showingNavigationDropdown ? 'inline-flex' : 'hidden'}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
-              {/* <div className="shrink-0 flex items-center">
-                <Link href="/">
-                  <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
-                </Link>
-              </div> */}
+                </button>
             </div>
+
+            {/* <div className={`lg:w-64 ${showingSidebar ? 'isSidebarOpen' : ''}`}>
+              <Sidebar url={url} />
+            </div> */}
 
             <div className="hidden sm:flex sm:items-center sm:ml-6">
               <div className="ml-3 relative">
@@ -129,7 +292,17 @@ export default function adminAuthenticated({ user, header, children }) {
             </div>
           </div>
         </div>
+
+
       </nav>
+
+      {/* {showingSidebar && (
+        <div className="lg:w-64">
+          <Sidebar url={url} />
+        </div>
+      )} */}
+
+
 
             {header && (
                 <header className="bg-white shadow">
@@ -138,6 +311,10 @@ export default function adminAuthenticated({ user, header, children }) {
             )}
 
             <main>{children}</main>
+            {/* <div className={`lg:w-64 ${showingSidebar ? 'isSidebarOpen' : ''}`}>
+                <Sidebar url={url} />
+            </div> */}
+            </div>
         </div>
     );
 }

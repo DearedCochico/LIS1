@@ -37,11 +37,12 @@ class ContactUsSettingsController extends Controller
     public function store(Request $request)
     {
         try {
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-            'phone' => 'required',
-        ]);
+            $validatedData = $request->validate([
+                'Type' => 'required',
+                'Value' => 'required',
+            ]);
+
+            $validatedData['lastUpdated'] = date('Y-m-d'); // Set the lastUpdated field to the current date
 
             $contactUsSettings = ContactUsSettings::create($validatedData);
             return response()->json($contactUsSettings, 201);
@@ -49,15 +50,6 @@ class ContactUsSettingsController extends Controller
             Log::error('Error storing contact: ' . $e->getMessage());
             return response()->json(['error' => 'Failed to store contact'], 500);
         }
-        // } catch (\Exception $e) {
-        //     Log::error('Error storing particular: ' . $e->getMessage());
-        //     return response()->json(['error' => 'Failed to store particular'], 500);
-        // }
-
-        // ContactUsSettings::create($validatedData);
-
-        // return redirect()->route('contact-us-settings.index')
-            // ->with('success', 'Contact Us Setting created successfully.');
     }
 
     public function show($id)
@@ -87,31 +79,19 @@ class ContactUsSettingsController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $contactUsSettings = ContactUsSettings::findOrFail($id);
 
         $validatedData = $request->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-            'phone' => 'required',
+            'Type' => 'required',
+            'Value' => 'required',
             // Add validation rules for other fields
         ]);
+
+        $validatedData['lastUpdated'] = date('Y-m-d'); // Set the lastUpdated field to the current date
 
         $contactUsSettings->update($validatedData);
 
         return response()->json($contactUsSettings);
-//
-        // $validatedData = $request->validate([
-        //     'name' => 'required',
-        //     'email' => 'required|email',
-        //     'phone' => 'required',
-        // ]);
-
-        // $contactUsSetting = ContactUsSettings::findOrFail($id);
-        // $contactUsSetting->update($validatedData);
-
-        // return redirect()->route('contact-us-settings.index')
-        //     ->with('success', 'Contact Us Setting updated successfully.');
     }
 
     /**

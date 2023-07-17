@@ -8,6 +8,7 @@ use App\Http\Controllers\ParticularController;
 use App\Http\Controllers\NewsSettingController;
 use App\Http\Controllers\ContactUsSettingsController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\AboutUsSectionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +52,13 @@ Route::get('/contacts', [ContactUsSettingsController::class, 'index']);
 Route::post('/contacts', [ContactUsSettingsController::class, 'store']);
 Route::put('/contacts/{id}', [ContactUsSettingsController::class, 'update']);
 Route::delete('/contacts/{id}', [ContactUsSettingsController::class, 'destroy']);
+
+Route::apiResource('/about-us-sections', AboutUsSectionController::class);
+
+Route::get('/about-us-sections', [AboutUsSectionController::class, 'index']);
+Route::post('/about-us-sections', [AboutUsSectionController::class, 'store']);
+Route::put('/about-us-sections/{id}', [AboutUsSectionController::class, 'update']);
+Route::delete('/about-us-sections/{id}', [AboutUsSectionController::class, 'destroy']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

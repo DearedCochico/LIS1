@@ -33,7 +33,7 @@ export default function AdminDashboard({ auth }) {
         </ul>
       </div> */}
 
-      <SideBar/>
+      {/* <SideBar/> */}
 
       {/* Content */}
       <div className=" w-3/4 p-10">

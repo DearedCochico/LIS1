@@ -4,15 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ContactUsSetting extends Model
+class ContactUsSettings extends Model
 {
     protected $table = 'contactUsTbl';
 
-    protected $primaryKey = 'contactID';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
-        'contacType',
-        'contactValue',
+        'Type',
+        'Value',
         'lastUpdated',
     ];
 

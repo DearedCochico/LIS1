@@ -23,6 +23,7 @@ export default {
             },
             'lightBlue': '#98daf8',
             'darkBlue': '#01224f',
+            'darkerBlue': '#011633',
           },
 
           margin: {

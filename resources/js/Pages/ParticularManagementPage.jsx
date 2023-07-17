@@ -100,7 +100,7 @@ const ParticularManagement = ({ auth }) => {
   return (
     <AuthenticatedLayout user={auth.user}>
       <Head title="Admin Dashboard" />
-      <SideBar />
+      {/* <SideBar /> */}
       <div className="p-4">
         <h1 className="text-2xl mb-4">Particular Management</h1>
         <div className="flex justify-between items-center mb-4">

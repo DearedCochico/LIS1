@@ -51,13 +51,13 @@ const AuditTrail = ({ auth }) => {
   return (
     <AuthenticatedLayout user={auth.user}>
       <Head title="Admin Dashboard" />
-      <SideBar />
+      {/* <SideBar /> */}
       <div className="container mx-auto p-4">
         <h1 className="text-2xl font-bold mb-4">Audit Trail</h1>
         <div className="flex justify-between items-center mb-4">
           <input
             type="text"
-            placeholder="Search User..."
+            placeholder="Search..."
             className="px-2 py-1 text-sm border border-gray-300 rounded"
             value={searchTerm}
             onChange={handleSearch}

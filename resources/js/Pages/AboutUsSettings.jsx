@@ -1,35 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import CKEditor from 'react-ckeditor-component';
 import AuthenticatedLayout from '@/Layouts/adminAuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import SideBar from '../Components/adminSideBar';
 
 const AboutUsSettingsPage = ({ auth }) => {
-  const [aboutUsSections, setAboutUsSections] = useState([
-    {
-      id: 1,
-      sectionTitle: "Section 1",
-      sectionContent: "<p>This is the content of Section 1.</p>",
-    },
-    {
-      id: 2,
-      sectionTitle: "Section 2",
-      sectionContent: "<p>This is the content of Section 2.</p>",
-    },
-    {
-      id: 3,
-      sectionTitle: "Section 3",
-      sectionContent: "<p>This is the content of Section 3.</p>",
-    },
-    // Add more about us sections as needed
-  ]);
-
+  const [aboutUsSections, setAboutUsSections] = useState([]);
   const [editingSection, setEditingSection] = useState(null);
   const [newSection, setNewSection] = useState({
     sectionTitle: '',
     sectionContent: '',
   });
   const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    fetchAboutUsSections();
+  }, []);
+
+  const fetchAboutUsSections = async () => {
+    try {
+      const response = await axios.get('/api/about-us-sections');
+      setAboutUsSections(response.data);
+    } catch (error) {
+      console.error('Error fetching about us sections:', error);
+    }
+  };
 
   const resetForm = () => {
     setEditingSection(null);
@@ -39,20 +35,25 @@ const AboutUsSettingsPage = ({ auth }) => {
     });
   };
 
-  const handleSave = (e) => {
+  const handleSave = async (e) => {
     e.preventDefault();
 
     if (editingSection) {
       // Update existing about us section
-      const updatedSections = aboutUsSections.map((section) =>
-        section.id === editingSection.id ? { ...newSection, id: section.id } : section
-      );
-      setAboutUsSections(updatedSections);
+      try {
+        await axios.put(`/api/about-us-sections/${editingSection.id}`, newSection);
+        fetchAboutUsSections();
+      } catch (error) {
+        console.error('Error updating about us section:', error);
+      }
     } else {
       // Create new about us section
-      const newId = Math.max(...aboutUsSections.map((section) => section.id)) + 1;
-      const newSectionItem = { ...newSection, id: newId };
-      setAboutUsSections([...aboutUsSections, newSectionItem]);
+      try {
+        await axios.post('/api/about-us-sections', newSection);
+        fetchAboutUsSections();
+      } catch (error) {
+        console.error('Error creating about us section:', error);
+      }
     }
 
     resetForm();
@@ -65,8 +66,13 @@ const AboutUsSettingsPage = ({ auth }) => {
     setShowModal(true);
   };
 
-  const handleDelete = (sectionId) => {
-    setAboutUsSections(aboutUsSections.filter((section) => section.id !== sectionId));
+  const handleDelete = async (sectionId) => {
+    try {
+      await axios.delete(`/api/about-us-sections/${sectionId}`);
+      fetchAboutUsSections();
+    } catch (error) {
+      console.error('Error deleting about us section:', error);
+    }
   };
 
   const handleChange = (e) => {
@@ -82,7 +88,7 @@ const AboutUsSettingsPage = ({ auth }) => {
     <AuthenticatedLayout user={auth.user}>
       <Head title="Admin Dashboard" />
 
-      <SideBar />
+      {/* <SideBar /> */}
 
       <div className="container mx-auto py-8 px-4">
         <h1 className="text-2xl font-bold mb-4">About Us Settings</h1>
