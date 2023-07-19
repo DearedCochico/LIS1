@@ -105,7 +105,7 @@ const ContactUsSettingsPage = ({ auth }) => {
 
         <div className="flex justify-end mb-4">
           <button
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+            className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
             onClick={openModal}
           >
             Add New Contact
@@ -130,7 +130,7 @@ const ContactUsSettingsPage = ({ auth }) => {
                   <td className="px-4 py-2 bg-white border border-gray-500">{contact.lastUpdated}</td>
                   <td className="px-4 py-2 bg-white border border-gray-500">
                     <button
-                      className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mr-2"
+                      className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mr-2"
                       onClick={() => handleEdit(contact)}
                     >
                       Edit

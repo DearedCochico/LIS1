@@ -14,6 +14,9 @@ const NewsSettingsPage = ({ auth }) => {
     publishDate: '',
   });
   const [showModal, setShowModal] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [sortOption, setSortOption] = useState('publish_date');
+
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -106,7 +109,10 @@ const createNews = async () => {
     } else {
       createNews();
     }
+
+    setShowModal(false);
   };
+
 
 
   const handleEdit = (item) => {
@@ -121,6 +127,7 @@ const createNews = async () => {
     }
   };
 
+
   const handleChange = (e) => {
     setNewNews({ ...newNews, [e.target.name]: e.target.value });
   };
@@ -131,6 +138,30 @@ const createNews = async () => {
     setNewNews({ ...newNews, content });
   };
 
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleSort = (event) => {
+    setSortOption(event.target.value);
+  };
+
+  const filteredNews = news
+  .filter((item) =>
+    item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    item.content.toLowerCase().includes(searchTerm.toLowerCase())
+  )
+  .sort((a, b) => {
+    if (sortOption === 'publish_date') {
+      return new Date(b.publish_date) - new Date(a.publish_date);
+    } else if (sortOption === 'title') {
+      return a.title.localeCompare(b.title);
+    }
+    return 0;
+  });
+
+
+
   return (
     <AuthenticatedLayout user={auth.user}>
       <Head title="Admin Dashboard" />
@@ -139,14 +170,36 @@ const createNews = async () => {
       <div className="container mx-auto py-8 px-4">
         <h1 className="text-2xl font-bold mb-4">News Settings</h1>
 
-        <div className="flex justify-end mt-4">
-          <button
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-            onClick={() => setShowModal(true)}
-          >
-            Add News
-          </button>
+        <div className="flex justify-between items-center">
+        <div className="flex">
+          <input
+            type="text"
+            placeholder="Search..."
+            className="border border-gray-300 rounded px-4 py-2 mr-4"
+            value={searchTerm}
+            onChange={handleSearch}
+          />
         </div>
+
+        <div className="flex">
+          <select
+            className="border border-gray-300 rounded px-4 py-2"
+            value={sortOption}
+            onChange={handleSort}
+          >
+            <option value="publish_date">Sort by Publish Date</option>
+            <option value="title">Sort by Title</option>
+          </select>
+        </div>
+
+  <button
+    className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded ml-2"
+    onClick={() => setShowModal(true)}
+  >
+    Add News
+  </button>
+</div>
+
 
         <div className="overflow-x-auto">
           <table className="w-full table-auto border border-gray-300 mt-4 bg-white">
@@ -159,7 +212,7 @@ const createNews = async () => {
               </tr>
             </thead>
             <tbody>
-              {news.map((item) => (
+            {filteredNews.map((item) => (
                 <tr key={item.id}>
                   <td className="py-2 px-4 border border-gray-500">{item.title}</td>
                   <td

@@ -9,6 +9,7 @@ const AuditTrail = ({ auth }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortOption, setSortOption] = useState('id');
 
+
   useEffect(() => {
     fetchAuditTrailLogs();
   }, []);
@@ -45,8 +46,9 @@ const AuditTrail = ({ auth }) => {
   });
 
   const filteredLogs = sortedLogs.filter((log) =>
-    log.user.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  log.user.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  log.department.toLowerCase().includes(searchTerm.toLowerCase())
+);
 
   return (
     <AuthenticatedLayout user={auth.user}>

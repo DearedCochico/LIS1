@@ -10,6 +10,11 @@ const ParticularManagement = ({ auth }) => {
   const [editingParticular, setEditingParticular] = useState(null);
   const [newParticular, setNewParticular] = useState({ name: '', description: '', price: 0 });
   const [searchTerm, setSearchTerm] = useState('');
+  const [sortOption, setSortOption] = useState('id');
+
+  const handleSort = (event) => {
+   setSortOption(event.target.value);
+  };
 
   useEffect(() => {
     fetchParticulars();
@@ -85,9 +90,26 @@ const ParticularManagement = ({ auth }) => {
     setSearchTerm(event.target.value);
   };
 
-  const filteredParticulars = particulars.filter((particular) =>
-    particular.name.toLowerCase().includes(searchTerm.toLowerCase())
+  const sortedParticulars = particulars.sort((a, b) => {
+    const nameA = a.name.toLowerCase();
+    const nameB = b.name.toLowerCase();
+    const priceA = a.price;
+    const priceB = b.price;
+
+    if (sortOption === 'id') {
+      return a.id - b.id;
+    } else if (sortOption === 'name') {
+      return nameA.localeCompare(nameB);
+    } else if (sortOption === 'price') {
+      return priceA - priceB;
+    }
+  });
+
+  const filteredParticulars = sortedParticulars.filter((particular) =>
+    particular.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    particular.price.toString().includes(searchTerm)
   );
+
 
   const handleSave = () => {
     if (editingParticular) {
@@ -111,10 +133,23 @@ const ParticularManagement = ({ auth }) => {
             value={searchTerm}
             onChange={handleSearch}
           />
+          <div className="flex items-center">
+  <label className="mr-2">Sort By:</label>
+  <select
+    className="px-2 py-1 text-sm border border-gray-300 rounded"
+    value={sortOption}
+    onChange={handleSort}
+  >
+    <option value="id">ID</option>
+    <option value="name">Name</option>
+    <option value="price">Price</option>
+  </select>
+</div>
+
           <button
-            className="px-2 py-1 ml-2 text-sm text-white bg-blue-500 rounded hover:bg-blue-600"
+            className="px-2 py-1 ml-2 text-sm text-white bg-green-500 rounded hover:bg-green-600"
             onClick={openModal}
-          >
+            >
             Add New Particular
           </button>
         </div>
@@ -137,9 +172,9 @@ const ParticularManagement = ({ auth }) => {
                   <td className="px-4 py-2 border bg-white">{particular.description}</td>
                   <td className="px-4 py-2 border bg-white">{particular.price}</td>
                   <td className="px-4 py-2 border bg-white">
-                    <button
-                      className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mr-2"
-                      onClick={() => handleEdit(particular)}
+                  <button
+                    className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mr-2"
+                    onClick={() => handleEdit(particular)}
                     >
                       Edit
                     </button>

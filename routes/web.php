@@ -110,8 +110,8 @@ Route::get('/cashier-dashboard', function () {
 // });
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+    return Inertia::render('AdminDashboard');
+})->middleware(['auth', 'verified', 'isAdmin'])->name('dashboard');
 
 
 // Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {

@@ -23,12 +23,10 @@ class AdminMiddleware
 
             if(Auth::user()->roleName == 'Admin') {
 
-
-
                 return $next($request);
 
             } else {
-                return redirect('/admin-dashboard')->with('message', 'Access Denied as you are not an Admin!');
+                return redirect('/login')->with('message', 'Access Denied as you are not an Admin!');
             }
 
         } else {

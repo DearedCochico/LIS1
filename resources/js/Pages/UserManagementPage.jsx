@@ -20,6 +20,7 @@ const UserManagementPage = ({ auth }) => {
   });
 
   const [searchTerm, setSearchTerm] = useState('');
+  const [sortOption, setSortOption] = useState('id');
 
   useEffect(() => {
     fetchUsers();
@@ -133,9 +134,37 @@ const UserManagementPage = ({ auth }) => {
     setSearchTerm(event.target.value);
   };
 
-  const filteredUsers = users.filter((user) =>
-    user.name.toLowerCase().includes(searchTerm.toLowerCase())
+
+  const handleSort = (event) => {
+    setSortOption(event.target.value);
+  };
+
+  const sortedUsers = users.sort((a, b) => {
+    const nameA = a.name.toLowerCase();
+    const nameB = b.name.toLowerCase();
+    const emailA = a.email.toLowerCase();
+    const emailB = b.email.toLowerCase();
+
+    if (sortOption === 'id') {
+      return a.id - b.id;
+    } else if (sortOption === 'name') {
+      return nameA.localeCompare(nameB);
+    } else if (sortOption === 'email') {
+      return emailA.localeCompare(emailB);
+    }
+  });
+
+  const filteredUsers = sortedUsers.filter(
+    (user) =>
+      user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+//   const filteredUsers = users.filter(
+//     (user) =>
+//       user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+//       user.email.toLowerCase().includes(searchTerm.toLowerCase())
+//   );
 
   const handleSave = async () => {
     console.log('Saving user:', newUser);
@@ -185,10 +214,22 @@ const UserManagementPage = ({ auth }) => {
             value={searchTerm}
             onChange={handleSearch}
           />
+                    <div className="flex items-center">
+            <label className="mr-2">Sort By:</label>
+            <select
+              className="px-2 py-1 text-sm border border-gray-300 rounded"
+              value={sortOption}
+              onChange={handleSort}
+            >
+              <option value="id">ID</option>
+              <option value="name">Name</option>
+              <option value="email">Email</option>
+            </select>
+          </div>
           <button
-            className="px-2 py-1 ml-2 text-sm text-white bg-blue-500 rounded hover:bg-blue-600"
+            className="px-2 py-1 ml-2 text-sm text-white bg-green-500 rounded hover:bg-green-600"
             onClick={openModal}
-          >
+            >
             Add New User
           </button>
         </div>
@@ -209,9 +250,9 @@ const UserManagementPage = ({ auth }) => {
                   <td className="px-4 py-2 border bg-white">{user.name}</td>
                   <td className="px-4 py-2 border bg-white">{user.email}</td>
                   <td className="px-4 py-2 border bg-white">
-                    <button
-                      className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mr-2"
-                      onClick={() => handleEdit(user)}
+                  <button
+                    className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mr-2"
+                    onClick={() => handleEdit(user)}
                     >
                       Edit
                     </button>

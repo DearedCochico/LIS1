@@ -174,13 +174,17 @@ export default function adminAuthenticated({ user, header, children, url }) {
       const [showingSidebar, setShowingSidebar] = useState(true);
 
       const toggleSidebar = () => {
-        setShowingSidebar(!showingSidebar);
+        setShowingSidebar((prevState) => !prevState);
       };
 
   return (
     <div className="min-h-screen bg-whiteBlue-1 flex">
         {showingSidebar && (
-        <div className="lg:w-64 flex-shrink-0">
+        <div
+          className={`lg:w-64 flex-shrink-0 transition-all duration-100 ${
+            showingSidebar ? '' : 'w-0'
+          }`}
+        >
           <Sidebar url={url} />
         </div>
       )}
@@ -191,13 +195,11 @@ export default function adminAuthenticated({ user, header, children, url }) {
           <div className="flex justify-between h-16">
           <div className="flex items-center">
           <button
-                  onClick={toggleSidebar}
-                  className={`inline-flex items-center justify-center w-12 h-12 bg-darkBlue text-white fixed top-2 left-0 z-10 transition-all duration-300 ${
-                    showingSidebar
-                      ? 'transform translate-x-64'
-                      : 'transform translate-x-0'
-                  }`}
-                >
+                onClick={toggleSidebar}
+                className={`inline-flex items-center justify-center w-12 h-12 bg-darkBlue opacity-90 hover:opacity-100 text-white fixed top-2 left-0 z-10 transition-all duration-100 ${
+                showingSidebar ? 'transform translate-x-64' : 'transform translate-x-0'
+                }`}
+            >
                   <FontAwesomeIcon
                     icon={showingSidebar ? faTimes : faChevronRight}
                     className={`w-6 h-6`}
