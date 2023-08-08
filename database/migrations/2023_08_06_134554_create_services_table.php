@@ -6,28 +6,22 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateServicesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
-        Schema::create('services', function (Blueprint $table) {
+        Schema::create('services_tbl', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('thumbnail')->nullable();
             $table->text('description');
-            $table->timestamps();
+            $table->timestamps(); // Adds created_at and updated_at columns
+
+            // If you want to add a soft delete column (deleted_at)
+            // $table->softDeletes();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
-        Schema::dropIfExists('services');
+        Schema::dropIfExists('services_tbl');
     }
 }

@@ -2,14 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class NewsSetting extends Model
 {
-    use HasFactory;
+    protected $table = 'news_settings_tbl';
 
-    protected $table = 'news_settings';
+    protected $primaryKey = 'id';
 
-    protected $fillable = ['title', 'content', 'publish_date'];
+    public $timestamps = false; // Assuming there are no 'created_at' and 'updated_at' columns
+
+    protected $fillable = ['title', 'thumbnail', 'content', 'publish_date'];
+
+    // Other model properties, relationships, and methods can be defined here
 }

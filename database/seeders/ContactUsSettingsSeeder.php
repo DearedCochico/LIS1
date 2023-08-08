@@ -7,33 +7,21 @@ use App\Models\ContactUsSettings;
 
 class ContactUsSettingsSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
+        // Create sample Contact Us settings
         ContactUsSettings::create([
-            'Type' => 'Email',
-            'Value' => 'example@example.com',
-            'lastUpdated' => now(),
+            'type' => 'Email',
+            'value' => 'contact@example.com',
+            'last_updated' => now(),
         ]);
 
         ContactUsSettings::create([
-            'Type' => 'Phone',
-            'Value' => '1234567890',
-            'lastUpdated' => now(),
+            'type' => 'Phone',
+            'value' => '123-456-7890',
+            'last_updated' => now(),
         ]);
 
-
-        // Add more ContactUsSetting data as needed
-
-        // You can also use the following code to generate multiple ContactUsSetting records
-        /*
-        ContactUsSetting::factory()
-            ->count(10)
-            ->create();
-        */
+        // Add more sample settings here if needed
     }
 }

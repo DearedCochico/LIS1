@@ -21,7 +21,7 @@ class AdminMiddleware
 
             // user role == 0
 
-            if(Auth::user()->roleName == 'Admin') {
+            if(Auth::user()->role_id == '1') {
 
                 return $next($request);
 

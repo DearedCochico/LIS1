@@ -8,18 +8,19 @@ class CreateParticularsTable extends Migration
 {
     public function up()
     {
-        Schema::create('particulars', function (Blueprint $table) {
+        Schema::create('particulars_tbl', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->decimal('price', 8, 2)->nullable();
-            // Add other necessary columns for actions, such as edit/delete timestamps or foreign keys
+            $table->decimal('price', 10, 2);
+            // Add any other columns you need
+
             $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('particulars');
+        Schema::dropIfExists('particulars_tbl');
     }
 }

@@ -16,10 +16,10 @@ class User extends Authenticatable
         'email',
         'password',
         'address',
-        'roleName', // Adjusted column name
-        'profilePicture', // Adjusted column name
-        'birthDate', // Adjusted column name
-        'contactNumber', // Adjusted column name
+        'profile_picture', // Adjusted column name
+        'birth_date', // Adjusted column name
+        'contact_number', // Adjusted column name
+        'role_id', // Adjusted column name
     ];
 
     protected $hidden = [
@@ -29,7 +29,7 @@ class User extends Authenticatable
 
     public function role()
     {
-        return $this->belongsTo(Role::class);
+        return $this->belongsTo(Role::class, 'role_id');
     }
 
     public function setPasswordAttribute($value)

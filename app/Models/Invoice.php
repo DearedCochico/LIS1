@@ -3,31 +3,29 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
 use App\Models\Patient;
 use App\Models\Doctor;
 
-
 class Invoice extends Model
 {
-    protected $table = 'invoiceTbl';
-    protected $primaryKey = 'invoiceID';
+    protected $table = 'invoice_tbl';
+    protected $primaryKey = 'id';
     public $timestamps = false;
 
     protected $fillable = [
-        'patientID',
-        'doctorID',
+        'patient_id', // Adjusted column name
+        'doctor_id', // Adjusted column name
         'totalAmount',
-        'invoiceDate',
+        'date', // Adjusted column name
     ];
 
     public function patient()
     {
-        return $this->belongsTo(Patient::class, 'patientID');
+        return $this->belongsTo(Patient::class, 'patient_id');
     }
 
     public function doctor()
     {
-        return $this->belongsTo(Doctor::class, 'doctorID');
+        return $this->belongsTo(Doctor::class, 'doctor_id');
     }
 }

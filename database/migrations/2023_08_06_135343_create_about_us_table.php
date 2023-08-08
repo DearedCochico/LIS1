@@ -4,22 +4,20 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAuditTrailTable extends Migration
+class CreateAboutUsTable extends Migration
 {
     public function up()
     {
-        Schema::create('audit_trail', function (Blueprint $table) {
+        Schema::create('about_us_tbl', function (Blueprint $table) {
             $table->id();
-            $table->string('user');
-            $table->string('action');
-            $table->timestamp('timestamp');
+            $table->string('title');
+            $table->text('content');
             $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('audit_trail');
+        Schema::dropIfExists('about_us_tbl');
     }
 }
-

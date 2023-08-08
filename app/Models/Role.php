@@ -9,8 +9,14 @@ class Role extends Model
 {
     use HasFactory;
 
+    protected $table = 'roles'; // Adjusted table name
+
+    protected $fillable = [
+        'name', // Adjusted column name
+    ];
+
     public function users()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(User::class, 'role_id');
     }
 }

@@ -2,28 +2,43 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Patient extends Model
 {
-    use HasFactory;
+    protected $table = 'patients_tbl'; // Set the table name
 
-    protected $table = 'patientsTbl'; // Set the table name
-
-    protected $primaryKey = 'patientID'; // Set the primary key column name
+    protected $primaryKey = 'id'; // Set the primary key column name
 
     protected $fillable = [
         'name',
         'email',
-        'phoneNumber',
+        'phone_number',
         'address',
-        'dateOfBirth',
+        'date_of_birth', // Adjusted column name
         'gender',
-        'medicalHistory',
+        'medical_history',
         // Add other fillable columns here
     ];
 
-    // Add any relationships or additional methods relevant to the model
+        // Define the "has many" relationship with LabRequest
+        public function labRequests()
+        {
+            return $this->hasMany(LabRequest::class, 'patient_id');
+        }
+
+        // Define the "has many" relationship with Invoice
+        public function invoices()
+        {
+            return $this->hasMany(Invoice::class, 'patient_id');
+        }
+
+        // Define the "has many" relationship with Payment
+        public function payments()
+        {
+            return $this->hasMany(Payment::class, 'patient_id');
+        }
+    
+        // Other methods or attributes can be defined here
 
 }

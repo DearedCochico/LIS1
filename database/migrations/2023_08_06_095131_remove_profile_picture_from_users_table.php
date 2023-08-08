@@ -4,29 +4,19 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddBirthDateToUsers extends Migration
+class RemoveProfilePictureFromUsersTable extends Migration
 {
-    /**
-     * Run the migration.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->date('birthDate')->nullable();
+            $table->dropColumn('profilePicture');
         });
     }
 
-    /**
-     * Reverse the migration.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('birthDate');
+            $table->string('profilePicture')->nullable();
         });
     }
 }
