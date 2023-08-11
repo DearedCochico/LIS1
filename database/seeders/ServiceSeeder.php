@@ -3,33 +3,22 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Service;
+use Illuminate\Support\Facades\DB;
 
 class ServiceSeeder extends Seeder
 {
-    /**
-     * Run the seeder.
-     *
-     * @return void
-     */
     public function run()
     {
-        // Define the services to be created
-        $services = [
-            [
-                'title' => 'Service 1',
-                'description' => 'This is service 1 description.',
-            ],
-            [
-                'title' => 'Service 2',
-                'description' => 'This is service 2 description.',
-            ],
-            // Add more services as needed
-        ];
+        $faker = \Faker\Factory::create();
 
-        // Create the services
-        foreach ($services as $serviceData) {
-            Service::create($serviceData);
+        for ($i = 1; $i <= 20; $i++) {
+            DB::table('services_tbl')->insert([
+                'title' => $faker->sentence(3),
+                'thumbnail' => 'service_thumbnail_'.$i.'.jpg', // Assuming you have thumbnail images
+                'description' => $faker->paragraph(3),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
         }
     }
 }

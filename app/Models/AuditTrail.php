@@ -14,7 +14,7 @@ class AuditTrail extends Model
         'action',
         'timestamp',
         'details', // Adjusted column name
-    ];
+    ]; 
 
     protected $primaryKey = 'id'; // Adjusted primary key
 

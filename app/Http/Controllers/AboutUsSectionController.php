@@ -27,8 +27,8 @@ class AboutUsSectionController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'sectionTitle' => 'required',
-            'sectionContent' => 'required',
+            'title' => 'required',
+            'content' => 'required',
         ]);
 
         $aboutUsSection = AboutUsSection::create($validatedData);
@@ -57,8 +57,8 @@ class AboutUsSectionController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'sectionTitle' => 'required',
-            'sectionContent' => 'required',
+            'title' => 'required',
+            'content' => 'required',
         ]);
 
         $aboutUsSection = AboutUsSection::findOrFail($id);

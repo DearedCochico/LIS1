@@ -4,45 +4,25 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ContactUsSettings;
+use Illuminate\Support\Facades\Log;
 
 class ContactUsSettingsController extends Controller
 {
-    /**
-     * Display a listing of the contact us settings.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $contactUsSettings = ContactUsSettings::all();
         return response()->json($contactUsSettings);
     }
 
-    /**
-     * Show the form for creating a new contact us setting.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('contact-us-settings.create');
-    }
-
-    /**
-     * Store a newly created contact us setting in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         try {
             $validatedData = $request->validate([
-                'Type' => 'required',
-                'Value' => 'required',
+                'type' => 'required', // Adjusted column name to lowercase
+                'value' => 'required', // Adjusted column name to lowercase
             ]);
 
-            $validatedData['lastUpdated'] = date('Y-m-d'); // Set the lastUpdated field to the current date
+            $validatedData['last_updated'] = now(); // Use Laravel's now() function
 
             $contactUsSettings = ContactUsSettings::create($validatedData);
             return response()->json($contactUsSettings, 201);
@@ -54,64 +34,32 @@ class ContactUsSettingsController extends Controller
 
     public function show($id)
     {
-        $contactUsSettings = ContactUsSettings::findOrFail($id);
-        return response()->json($contactUsSettings);
+        $contactUsSetting = ContactUsSettings::findOrFail($id);
+        return response()->json($contactUsSetting);
     }
 
-    /**
-     * Show the form for editing the specified contact us setting.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $contactUsSettings = ContactUsSettings::findOrFail($id);
-        return view('contact-us-settings.edit', compact('contactUsSetting'));
-    }
-
-    /**
-     * Update the specified contact us setting in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        $contactUsSettings = ContactUsSettings::findOrFail($id);
+        $contactUsSetting = ContactUsSettings::findOrFail($id);
 
         $validatedData = $request->validate([
-            'Type' => 'required',
-            'Value' => 'required',
+            'type' => 'required', // Adjusted column name to lowercase
+            'value' => 'required', // Adjusted column name to lowercase
             // Add validation rules for other fields
         ]);
 
-        $validatedData['lastUpdated'] = date('Y-m-d'); // Set the lastUpdated field to the current date
+        $validatedData['last_updated'] = now(); // Use Laravel's now() function
 
-        $contactUsSettings->update($validatedData);
+        $contactUsSetting->update($validatedData);
 
-        return response()->json($contactUsSettings);
+        return response()->json($contactUsSetting);
     }
 
-    /**
-     * Remove the specified contact us setting from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
+        $contactUsSetting = ContactUsSettings::findOrFail($id);
+        $contactUsSetting->delete();
 
-        $ontactUsSetting = ContactUsSettings::findOrFail($id);
-        $ontactUsSetting->delete();
         return response()->json(null, 204);
-
-        // $contactUsSetting = ContactUsSettings::findOrFail($id);
-        // $contactUsSetting->delete();
-
-        // return redirect()->route('contact-us-settings.index')
-        //     ->with('success', 'Contact Us Setting deleted successfully.');
     }
 }
-

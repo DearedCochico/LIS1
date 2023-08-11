@@ -27,7 +27,7 @@ class CashierMiddleware
                 return $next($request);
 
             } else {
-                return redirect('/dashboard')->with('message', 'Access Denied as you are not an Cashier!');
+                return redirect('/login')->with('message', 'Access Denied as you are not a Cashier!');
             }
 
         } else {

@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Particular;
+use App\Models\Department;
 
-class ParticularController extends Controller
+class DepartmentController extends Controller
 {
     public function index()
     {
-        $particulars = Particular::all();
-        return response()->json($particulars);
+        $departments = Department::all();
+        return response()->json($departments);
     }
 
     public function store(Request $request)
@@ -18,34 +18,31 @@ class ParticularController extends Controller
         $validatedData = $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'price' => 'required|numeric',
-            // Add validation rules for other fields
         ]);
 
-        $particular = Particular::create($validatedData);
-        return response()->json($particular, 201);
+        $department = Department::create($validatedData);
+        return response()->json($department, 201);
     }
 
     public function update(Request $request, $id)
     {
-        $particular = Particular::findOrFail($id);
+        $department = Department::findOrFail($id);
 
         $validatedData = $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'price' => 'required|numeric',
             // Add validation rules for other fields
         ]);
 
-        $particular->update($validatedData);
+        $department->update($validatedData);
 
-        return response()->json($particular);
+        return response()->json($department);
     }
 
     public function destroy($id)
     {
-        $particular = Particular::findOrFail($id);
-        $particular->delete();
+        $department = Department::findOrFail($id);
+        $department->delete();
 
         return response()->json(null, 204);
     }

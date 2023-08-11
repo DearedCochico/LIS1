@@ -9,6 +9,15 @@ use App\Http\Controllers\NewsSettingController;
 use App\Http\Controllers\ContactUsSettingsController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\AboutUsSectionController;
+use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\LabRequestController;
+use App\Http\Controllers\PatientController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SpecializationController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +68,47 @@ Route::get('/about-us-sections', [AboutUsSectionController::class, 'index']);
 Route::post('/about-us-sections', [AboutUsSectionController::class, 'store']);
 Route::put('/about-us-sections/{id}', [AboutUsSectionController::class, 'update']);
 Route::delete('/about-us-sections/{id}', [AboutUsSectionController::class, 'destroy']);
+
+Route::get('/departments', [DepartmentController::class, 'index']);
+Route::post('/departments', [DepartmentController::class, 'store']);
+Route::put('/departments/{id}', [DepartmentController::class, 'update']);
+Route::delete('/departments/{id}', [DepartmentController::class, 'destroy']);
+
+
+Route::get('/doctors', [DoctorController::class, 'index']);
+Route::post('/doctors', [DoctorController::class, 'store']);
+Route::put('/doctors/{id}', [DoctorController::class, 'update']);
+Route::delete('/doctors/{id}', [DoctorController::class, 'destroy']);
+
+Route::get('/invoices', [InvoiceController::class, 'index']);
+Route::post('/invoices', [InvoiceController::class, 'store']);
+Route::put('/invoices/{id}', [InvoiceController::class, 'update']);
+Route::delete('/invoices/{id}', [InvoiceController::class, 'destroy']);
+
+Route::get('/lab-requests', [LabRequestController::class, 'index']);
+Route::post('/lab-requests', [LabRequestController::class, 'store']);
+Route::put('/lab-requests/{id}', [LabRequestController::class, 'update']);
+Route::delete('/lab-requests/{id}', [LabRequestController::class, 'destroy']);
+
+Route::get('/patients', [PatientController::class, 'index']);
+Route::post('/patients', [PatientController::class, 'store']);
+Route::put('/patients/{id}', [PatientController::class, 'update']);
+Route::delete('/patients/{id}', [PatientController::class, 'destroy']);
+
+Route::get('/payments', [PaymentController::class, 'index']);
+Route::post('/payments', [PaymentController::class, 'store']);
+Route::put('/payments/{id}', [PaymentController::class, 'update']);
+Route::delete('/payments/{id}', [PaymentController::class, 'destroy']);
+
+Route::get('/roles', [RoleController::class, 'index']);
+Route::post('/roles', [RoleController::class, 'store']);
+Route::put('/roles/{id}', [RoleController::class, 'update']);
+Route::delete('/roles/{id}', [RoleController::class, 'destroy']);
+
+Route::get('/specializations', [SpecializationController::class, 'index']);
+Route::post('/specializations', [SpecializationController::class, 'store']);
+Route::put('/specializations/{id}', [SpecializationController::class, 'update']);
+Route::delete('/specializations/{id}', [SpecializationController::class, 'destroy']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

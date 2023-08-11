@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\NewsSetting;
-use Illuminate\Support\Facades\Log;
 
 class NewsSettingController extends Controller
 {
@@ -16,27 +15,16 @@ class NewsSettingController extends Controller
 
     public function store(Request $request)
     {
-        try {
-            $validatedData = $request->validate([
-                'title' => 'required',
-                'content' => 'required',
-                'publish_date' => 'required|date',
-                // Add validation rules for other fields if needed
-            ]);
+        $validatedData = $request->validate([
+            'title' => 'required',
+            'thumbnail' => 'required',
+            'content' => 'required',
+            'publish_date' => 'required|date',
+            // Add validation rules for other fields
+        ]);
 
-            $newsSetting = NewsSetting::create($validatedData);
-            return response()->json($newsSetting, 201);
-        } catch (\Exception $e) {
-            Log::error('Error storing news setting: ' . $e->getMessage());
-            return response()->json(['error' => 'Failed to store news setting'], 500);
-        }
-
-    }
-
-    public function show($id)
-    {
-        $newsSetting = NewsSetting::findOrFail($id);
-        return response()->json($newsSetting);
+        $newsSetting = NewsSetting::create($validatedData);
+        return response()->json($newsSetting, 201);
     }
 
     public function update(Request $request, $id)
@@ -45,9 +33,10 @@ class NewsSettingController extends Controller
 
         $validatedData = $request->validate([
             'title' => 'required',
+            'thumbnail' => 'required',
             'content' => 'required',
             'publish_date' => 'required|date',
-            // Add validation rules for other fields if needed
+            // Add validation rules for other fields
         ]);
 
         $newsSetting->update($validatedData);
@@ -59,6 +48,7 @@ class NewsSettingController extends Controller
     {
         $newsSetting = NewsSetting::findOrFail($id);
         $newsSetting->delete();
+
         return response()->json(null, 204);
     }
 }

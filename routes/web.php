@@ -19,20 +19,20 @@ use Inertia\Inertia;
 |
 */
 // Retrieve the list of users
-Route::get('/users', [UserController::class, 'index']);
-// Add a user
-Route::post('/users', [UserController::class, 'store']);
+// Route::get('/users', [UserController::class, 'index']);
+// // Add a user
+// Route::post('/users', [UserController::class, 'store']);
 
-Route::put('/users/{id}', [UserController::class, 'update']);
-Route::delete('/users/{id}', [UserController::class, 'destroy']);
+// Route::put('/users/{id}', [UserController::class, 'update']);
+// Route::delete('/users/{id}', [UserController::class, 'destroy']);
 
 // Route::get('/users', [UserController::class, 'index'])->name('users.index');
 
-Route::get('/services', [ServiceController::class, 'index']); // Fetch all services
-Route::post('/services', [ServiceController::class, 'store']); // Create a service
-Route::get('/services/{id}', [ServiceController::class, 'show']); // Fetch a specific service
-Route::put('/services/{id}', [ServiceController::class, 'update']); // Update a service
-Route::delete('/services/{id}', [ServiceController::class, 'destroy']); // Delete a service
+// Route::get('/services', [ServiceController::class, 'index']); // Fetch all services
+// Route::post('/services', [ServiceController::class, 'store']); // Create a service
+// Route::get('/services/{id}', [ServiceController::class, 'show']); // Fetch a specific service
+// Route::put('/services/{id}', [ServiceController::class, 'update']); // Update a service
+// Route::delete('/services/{id}', [ServiceController::class, 'destroy']); // Delete a service
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -102,6 +102,11 @@ Route::get('/cashier-dashboard', function () {
     return Inertia::render('CashierDashboard');
 })->middleware(['auth', 'verified', 'isCashier'])->name('cashier-dashboard');
 
+
+Route::get('/lab-technician-dashboard', function () {
+    return Inertia::render('LabTechDashboard');
+})->middleware(['auth', 'verified', 'isLabTech'])->name('lab-technician-dashboard');
+
 // others
 // Route::middleware(['auth'])->group(function () {
 //     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -110,8 +115,8 @@ Route::get('/cashier-dashboard', function () {
 // });
 
 Route::get('/dashboard', function () {
-    return Inertia::render('AdminDashboard');
-})->middleware(['auth', 'verified', 'isAdmin'])->name('dashboard');
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 
 // Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {

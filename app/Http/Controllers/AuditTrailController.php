@@ -8,7 +8,7 @@ class AuditTrailController extends Controller
 {
     public function index()
     {
-        $auditTrail = AuditTrail::all();
-        return response()->json($auditTrail);
+        $auditTrails = AuditTrail::all(); // Renamed to $auditTrails for consistency
+        return response()->json($auditTrails);
     }
 }
